@@ -19,13 +19,13 @@ public class CategoryController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping
-    public ResponseEntity addCategory(@RequestBody String category){
+    @PostMapping()
+    public ResponseEntity addCategory(@RequestBody Category category){
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateCategory(@RequestBody String category){
+    public ResponseEntity updateCategory(@RequestBody Category category){
         return ResponseEntity.ok().build();
 
     }

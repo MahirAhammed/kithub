@@ -52,6 +52,5 @@ public class Product {
     private LocalDateTime timeUpdated;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection
-    private List<Region> region;
+    private List<Region> regions;
 }

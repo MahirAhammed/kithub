@@ -41,7 +41,7 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public ResponseEntity<Category> addCategory(@RequestBody CategoryDTO category){
+    public ResponseEntity<Category> addCategory(@RequestBody Category category){
         return addCategoryHandler.execute(category) ;
     }
 

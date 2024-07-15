@@ -25,7 +25,10 @@ public class GetCategoryByIdHandler implements Query<Long, Category> {
 
         Optional<Category> category = repo.findById(id);
         if (category.isEmpty()){
-            throw new RuntimeException("Category does not exist");
+
+            // TODO
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+         //   throw new RuntimeException("Category does not exist");
         }
         return ResponseEntity.status(HttpStatus.OK).body(category.get());
     }

@@ -2,7 +2,6 @@ package com.example.kithub.category.commandhandlers;
 
 import com.example.kithub.Command;
 import com.example.kithub.category.Category;
-import com.example.kithub.category.CategoryDTO;
 import com.example.kithub.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

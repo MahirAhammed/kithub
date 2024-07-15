@@ -1,5 +1,8 @@
 package com.example.kithub.product;
 
+import lombok.ToString;
+
+@ToString
 public enum Region {
     ZA,
     BD,
@@ -10,4 +13,6 @@ public enum Region {
     EG,
     ES,
     TR
+
+
 }

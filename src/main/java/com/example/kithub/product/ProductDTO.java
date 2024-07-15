@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,6 +19,7 @@ public class ProductDTO {
     private int quantity;
     private String category;
     private String supplier;
+    private List<Region> regions;
 
     public ProductDTO(Product product){
         this.productName = product.getProductName();
@@ -25,6 +28,7 @@ public class ProductDTO {
         this.quantity = product.getQuantity();
         this.category = product.getCategory().getValue();
         this.supplier = product.getSupplier();
+        this.regions = product.getRegions();
     }
 
 }

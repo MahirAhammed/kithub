@@ -52,5 +52,6 @@ public class Product {
     private LocalDateTime timeUpdated;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "regions")
     private List<Region> regions;
 }

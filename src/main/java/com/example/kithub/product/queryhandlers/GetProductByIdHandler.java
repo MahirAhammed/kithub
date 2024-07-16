@@ -1,6 +1,8 @@
 package com.example.kithub.product.queryhandlers;
 
 import com.example.kithub.Query;
+import com.example.kithub.exceptions.InvalidUUIDException;
+import com.example.kithub.exceptions.ProductNotFoundException;
 import com.example.kithub.product.Product;
 import com.example.kithub.product.ProductDTO;
 import com.example.kithub.product.ProductRepository;
@@ -24,12 +26,19 @@ public class GetProductByIdHandler implements Query<String, ProductDTO> {
 
     @Override
     public ResponseEntity<ProductDTO> execute(String id) {
-        Optional<Product> product = repository.findById(UUID.fromString(id));
 
-        if (product.isEmpty()){
-            throw new RuntimeException("Product does not exist");
+        try{
+            Optional<Product> product = repository.findById(UUID.fromString(id));
+
+            if (product.isEmpty()){
+                throw new ProductNotFoundException();
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(new ProductDTO(product.get()));
+
+        }catch (IllegalArgumentException e){
+            throw new InvalidUUIDException();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ProductDTO(product.get()));
     }
 }

@@ -2,6 +2,7 @@ package com.example.kithub.product;
 
 import com.example.kithub.product.commandhandlers.AddProductHandler;
 import com.example.kithub.product.commandhandlers.DeleteProductHandler;
+import com.example.kithub.product.commandhandlers.UpdateProductHandler;
 import com.example.kithub.product.queryhandlers.GetProductByIdHandler;
 import com.example.kithub.product.queryhandlers.GetProductsHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,16 @@ public class ProductController {
     private final AddProductHandler addProductHandler;
     private final GetProductsHandler getProductsHandler;
     private final GetProductByIdHandler getProductByIdHandler;
+    private final UpdateProductHandler updateProductHandler;
     private final DeleteProductHandler deleteProductHandler;
 
 
     @Autowired
-    public ProductController(AddProductHandler addProductHandler, GetProductsHandler getProductsHandler, GetProductByIdHandler getProductByIdHandler, DeleteProductHandler deleteProductHandler) {
+    public ProductController(AddProductHandler addProductHandler, GetProductsHandler getProductsHandler, GetProductByIdHandler getProductByIdHandler, UpdateProductHandler updateProductHandler, DeleteProductHandler deleteProductHandler) {
         this.addProductHandler = addProductHandler;
         this.getProductsHandler = getProductsHandler;
         this.getProductByIdHandler = getProductByIdHandler;
+        this.updateProductHandler = updateProductHandler;
         this.deleteProductHandler = deleteProductHandler;
     }
 
@@ -54,8 +57,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product){
-        product.setProductId(UUID.fromString(id));
-        return ResponseEntity.ok().build();
+        return updateProductHandler.execute(new ProductRequest(id, product));
 
     }
 

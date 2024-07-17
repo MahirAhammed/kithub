@@ -2,6 +2,8 @@ package com.example.kithub.product.queryhandlers;
 
 import com.example.kithub.Query;
 import com.example.kithub.product.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class GetProductsHandler implements Query<ProductRequest, List<ProductDTO>> {
 
+    private static final Logger logger = LoggerFactory.getLogger(GetProductsHandler.class);
     private final ProductRepository repository;
 
     @Autowired
@@ -23,6 +26,9 @@ public class GetProductsHandler implements Query<ProductRequest, List<ProductDTO
 
     @Override
     public ResponseEntity<List<ProductDTO>> execute(ProductRequest input) {
+
+        logger.info("Executing {}", getClass());
+
         List<Product> products = repository.findProductsByMatchingCriteria(
                 input.getNameOrDescription(),
                 input.getRegion(),

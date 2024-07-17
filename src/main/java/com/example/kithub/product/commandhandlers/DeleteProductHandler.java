@@ -35,6 +35,7 @@ public class DeleteProductHandler implements Command<String, Void>{
 
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
+
         catch (IllegalArgumentException e){
             throw new InvalidUUIDException();
         }

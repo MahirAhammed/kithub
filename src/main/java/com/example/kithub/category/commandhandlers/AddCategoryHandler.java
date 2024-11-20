@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AddCategoryHandler implements Command<Category,Category> {
 
-    private CategoryRepository repository;
+    private final CategoryRepository repository;
 
     @Autowired
     public AddCategoryHandler(CategoryRepository categoryRepository) {

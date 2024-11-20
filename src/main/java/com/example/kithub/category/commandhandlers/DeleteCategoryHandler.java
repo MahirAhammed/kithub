@@ -3,6 +3,7 @@ package com.example.kithub.category.commandhandlers;
 import com.example.kithub.Command;
 import com.example.kithub.category.Category;
 import com.example.kithub.category.CategoryRepository;
+import com.example.kithub.exceptions.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class DeleteCategoryHandler implements Command<Long,Void> {
         Optional<Category> category = repository.findById(id);
 
         if (category.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new CategoryNotFoundException();
         }
 
         repository.delete(category.get());

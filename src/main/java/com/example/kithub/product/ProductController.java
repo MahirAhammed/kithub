@@ -7,13 +7,15 @@ import com.example.kithub.product.queryhandlers.GetProductByIdHandler;
 import com.example.kithub.product.queryhandlers.GetProductsHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/products")
+@EnableMethodSecurity
 public class ProductController {
 
     private final AddProductHandler addProductHandler;
@@ -50,18 +52,21 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product){
         return addProductHandler.execute(product);
 
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product){
         return updateProductHandler.execute(new ProductRequest(id, product));
 
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity deleteProduct(@PathVariable String id){
         return deleteProductHandler.execute(id);
 

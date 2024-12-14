@@ -1,5 +1,7 @@
 package com.example.kithub.user;
 
+import com.example.kithub.exceptions.BlankUserInputException;
+import com.example.kithub.exceptions.InvalidPasswordException;
 import com.example.kithub.exceptions.UserExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ public class UserService {
     }
 
     public ResponseEntity<String> createUser(CustomUser newUser, String role){
+
+        validateUser(newUser);
 
         Optional<CustomUser> user =  repository.findByUsername(newUser.getUsername());
 
@@ -51,7 +55,7 @@ public class UserService {
             return ResponseEntity.ok(user.get());
         }
 
-        throw new UsernameNotFoundException("User with that ID does not exist");
+        throw new UsernameNotFoundException("No user exists with that ID");
     }
 
     public ResponseEntity<CustomUser> updateUser(CustomUser user, long id){
@@ -59,8 +63,10 @@ public class UserService {
 
         if (existingUser.isPresent()){
             user.setId(existingUser.get().getId());
+            user.setPassword(encoder.encode(user.getPassword()));
             user.setRole(existingUser.get().getRole());
-            return ResponseEntity.ok(user);
+            repository.save(user);
+            return ResponseEntity.ok().body(user);
         }
 
         throw new UsernameNotFoundException("User does not exist");
@@ -75,6 +81,19 @@ public class UserService {
         }
 
         throw new UsernameNotFoundException("User does not exist");
+    }
+
+    private void validateUser(CustomUser user){
+        if (user.getUsername() == null
+                || user.getPassword() == null
+                || user.getUsername().isBlank()
+                || user.getPassword().isBlank()){
+            throw new BlankUserInputException();
+        }
+
+        if (user.getPassword().length() < 6){
+            throw new InvalidPasswordException();
+        }
     }
 
 }

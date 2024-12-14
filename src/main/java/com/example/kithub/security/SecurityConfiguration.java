@@ -34,10 +34,11 @@ public class SecurityConfiguration {
                     authorize.requestMatchers("api/v1/products").permitAll();
                     authorize.requestMatchers("api/v1/categories").permitAll();
                     authorize.requestMatchers("api/v1/users/create_user").permitAll();
+                    authorize.requestMatchers(HttpMethod.GET, "api/v1/products/**").permitAll();
+                    authorize.requestMatchers(HttpMethod.GET,"api/v1/categories/**").permitAll();
                     authorize.requestMatchers(HttpMethod.POST,"api/v1/users/create_admin").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.PUT,"api/v1/users/**").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.DELETE,"api/v1/users/**").hasRole("ADMIN");
-
 
                     authorize.anyRequest().authenticated();
         })

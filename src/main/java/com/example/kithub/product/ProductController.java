@@ -5,6 +5,7 @@ import com.example.kithub.product.commandhandlers.DeleteProductHandler;
 import com.example.kithub.product.commandhandlers.UpdateProductHandler;
 import com.example.kithub.product.queryhandlers.GetProductByIdHandler;
 import com.example.kithub.product.queryhandlers.GetProductsHandler;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -7,12 +7,15 @@ import com.example.kithub.category.queryhandlers.GetAllCategoriesHandler;
 import com.example.kithub.category.queryhandlers.GetCategoryByIdHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/categories")
+@EnableMethodSecurity
 public class CategoryController {
 
     private final GetAllCategoriesHandler getAllCategoriesHandler;
@@ -41,11 +44,13 @@ public class CategoryController {
     }
 
     @PostMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> addCategory(@RequestBody Category category){
         return addCategoryHandler.execute(category) ;
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> updateCategory(@PathVariable long id, @RequestBody Category category){
 
         category.setCategoryId(id);
@@ -54,6 +59,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity deleteCategory(@PathVariable long id){
         return deleteCategoryHandler.execute(id);
 

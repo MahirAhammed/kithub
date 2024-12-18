@@ -18,11 +18,11 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long categoryId;
-    @Column(name = "value")
-    private String value;
+    @Column(name = "category_name")
+    private String categoryName;
 
     public Category(String value){
-        this.value = value;
+        this.categoryName = value;
     }
 
 }

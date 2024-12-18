@@ -21,17 +21,17 @@ public class AddCategoryHandler implements Command<Category,Category> {
     @Override
     public ResponseEntity<Category> execute(Category category) {
 
-        if (category.getValue().isEmpty()){
+        if (category.getCategoryName().isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         }
 
-        Category newCategory = repository.findByValueContaining(category.getValue());
+        Category newCategory = repository.findByCategoryNameContaining(category.getCategoryName());
         if (newCategory != null){
             return ResponseEntity.status(HttpStatus.OK).body(newCategory);
         }
 
-        newCategory = new Category(category.getValue());
+        newCategory = new Category(category.getCategoryName());
         repository.save(newCategory);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newCategory);

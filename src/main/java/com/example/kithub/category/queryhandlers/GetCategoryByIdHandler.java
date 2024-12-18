@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class GetCategoryByIdHandler implements Query<Long, Category> {
 
-    private CategoryRepository repo;
+    private final CategoryRepository repo;
 
     @Autowired
     public GetCategoryByIdHandler(CategoryRepository repo) {

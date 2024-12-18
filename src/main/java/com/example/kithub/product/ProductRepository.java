@@ -15,10 +15,10 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     Optional<Product> findByProductName(String name);
 
     @Query(value = "SELECT p.* FROM Product p JOIN category c ON p.category = c.id WHERE " +
-            "(:nameOrDescription IS NULL OR p.product_name LIKE '%'||:nameOrDescription||'%' OR p.description LIKE '%'||:nameOrDescription||'%') AND " +
-            "(:region = ANY(p.regions)) AND " +
-            "(:category IS NULL OR c.value = :category) AND " +
-            "(:supplier IS NULL OR p.supplier LIKE '%'||:supplier||'%')", nativeQuery = true)
+            "(:nameOrDescription IS NULL OR LOWER(p.product_name) LIKE LOWER('%'||:nameOrDescription||'%') OR LOWER(p.description) LIKE LOWER('%'||:nameOrDescription||'%')) AND " +
+            "(:region IS NULL OR :region = ANY(p.regions)) AND " +
+            "(:category IS NULL OR LOWER(c.category_name) = LOWER(:category)) AND " +
+            "(:supplier IS NULL OR LOWER(p.supplier) LIKE LOWER('%'||:supplier||'%'))", nativeQuery = true)
     List<Product> findProductsByMatchingCriteria(
             @Param("nameOrDescription") String nameOrDescription,
             @Param("region") String region,

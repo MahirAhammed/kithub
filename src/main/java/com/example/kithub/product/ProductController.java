@@ -37,7 +37,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getProductsByCriteria(
-            @RequestHeader(value = "Region", defaultValue = "ZA",required = false) String region,
+            @RequestHeader(value = "Region", defaultValue = "ZA", required = false) String region,
             @RequestParam(required = false) String nameOrDescription,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String orderBy,

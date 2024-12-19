@@ -6,6 +6,7 @@ import com.example.kithub.exceptions.InvalidFieldException;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 public class ProductValidator {
 
@@ -30,7 +31,7 @@ public class ProductValidator {
     }
 
     private static void validateName(String name){
-        if (name.isEmpty() || name.isBlank()){
+        if (name == null || name.isBlank()){
             throw new InvalidFieldException(ErrorMessage.PRODUCT_NAME_EMPTY.getMessage());
         }
     }
@@ -49,11 +50,17 @@ public class ProductValidator {
     }
 
     private static void validateRegions(List<Region> regions){
-        for (Region region: regions){
-            if (!EnumSet.allOf(Region.class).contains(region)){
-                throw new InvalidFieldException(String.format("%s is not an available region", region.toString()));
-            }
+
+        if (regions == null || regions.isEmpty()){
+            throw new InvalidFieldException("No regions provided");
         }
 
+        Set<Region> validRegions = EnumSet.allOf(Region.class);
+
+        for (Region region : regions) {
+            if (!validRegions.contains(region)) {
+                throw new InvalidFieldException(String.format("%s is not an available region", region));
+            }
+        }
     }
 }

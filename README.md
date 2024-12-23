@@ -6,4 +6,5 @@ Kithub is a RESTful API for a conceptual platform selling sports kits, designed 
 The endpoints allow to perform CRUD operations:
 |Method |URL                   |Description                 |Sample Request Body |
 |-------|----------------------|----------------------------|--------------------|
-|**GET**|/api/v1/products      | Get a list of all the products with matching criteria|  |
+|**GET**| /api/v1/products      | Get a list of all the products with matching criteria, * Query parameters: 'nameOrDescription', 'category', 'supplier'|  |
+|**GET**| /api/v1/products/{id} | Get a product by its ID of type UUID | |

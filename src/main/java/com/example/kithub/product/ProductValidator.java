@@ -43,7 +43,7 @@ public class ProductValidator {
     }
 
     private static void validateQuantity(int quantity){
-        if (quantity <= 0){
+        if (quantity < 0){
             throw new InvalidFieldException(ErrorMessage.PRODUCT_QUANTITY_INVALID.getMessage());
 
         }

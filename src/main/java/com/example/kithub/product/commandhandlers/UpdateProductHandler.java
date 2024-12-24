@@ -43,11 +43,44 @@ public class UpdateProductHandler implements Command<ProductRequest, Product> {
                 logger.error("Product does not exist");
                 throw new ProductNotFoundException();
             }
-            productRequest.getProduct().setProductId(productId);
-            productRequest.getProduct().setTimeCreated(existingProduct.get().getTimeCreated());
-            ProductValidator.validator(productRequest.getProduct());
-            ProductValidator.categoryValidator(productRequest.getProduct().getCategory(), categoryRepository.findAll());
-            repository.save(productRequest.getProduct());
+
+            Product updatedProduct = productRequest.getProduct();
+
+            updatedProduct.setProductId(productId);
+            updatedProduct.setTimeCreated(existingProduct.get().getTimeCreated());
+
+            if (updatedProduct.getProductName() == null){
+                updatedProduct.setProductName(existingProduct.get().getProductName());
+            }
+
+            if (updatedProduct.getDescription() == null){
+                updatedProduct.setDescription(existingProduct.get().getDescription());
+            }
+
+            if (updatedProduct.getPrice() <= 0){
+                updatedProduct.setPrice(existingProduct.get().getPrice());
+            }
+
+            if (updatedProduct.getQuantity() <= 0){
+                updatedProduct.setPrice(existingProduct.get().getQuantity());
+            }
+
+            if (updatedProduct.getCategory() == null){
+                updatedProduct.setCategory(existingProduct.get().getCategory());
+            }
+
+            if (updatedProduct.getSupplier() == null){
+                updatedProduct.setSupplier(existingProduct.get().getSupplier());
+            }
+
+            if (updatedProduct.getRegions() == null){
+                updatedProduct.setRegions(existingProduct.get().getRegions());
+            }
+
+
+            ProductValidator.validator(updatedProduct);
+            ProductValidator.categoryValidator(updatedProduct.getCategory(), categoryRepository.findAll());
+            repository.save(updatedProduct);
 
             return ResponseEntity.ok(productRequest.getProduct());
         }

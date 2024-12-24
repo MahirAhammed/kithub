@@ -22,16 +22,13 @@ The endpoints allow to perform CRUD operations:
 |**POST**| /api/v1/products    | Add a product              |   |
 |**PUT**| /api/v1/products/{id}    | Update a product with given ID  |   |
 |**DELETE**| /api/v1/products/{id}   | Delete a product with given ID  |   |
-
 |**POST**| /api/v1/categories    | Add a category              |   |
 |**PUT**| /api/v1/categories/{id}    | Update a category with given ID  |   |
 |**DELETE**| /api/v1/categories/{id}   | Delete a category with given ID  |   |
-
 |**GET**| /api/v1/users | Get a list of all the users | |
 |**GET**| /api/v1/users/{id} | Get a user by its ID | |
 |**POST**| /api/v1/users    | Add a user              |   |
 |**PUT**| /api/v1/users/{id}    | Update a user with given ID  |   |
 |**DELETE**| /api/v1/users/{id}   | Delete a user with given ID  |   |
-
-|**POST**| /api/v1/users/create_admin | Add an admin user ||
+|**POST**| /api/v1/users/create_admin | Add an admin user | |
 

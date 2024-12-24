@@ -2,9 +2,9 @@
 
 Kithub is a RESTful API for a conceptual platform selling sports kits, designed to manage and provide information about football/soccer kits for sale. It is built with Spring Boot as it provides a quick, reliable and scalable backend for e-commerce applications.
 
-### Endpoints
+## Endpoints
 The endpoints allow to perform CRUD operations:
-|Public endpoints|
+### Public endpoints
 |Method |URL                   |Description                 |Sample Request Body |
 |-------|----------------------|----------------------------|--------------------|
 |**GET**| /api/v1/products      | Get a list of all the products|  |
@@ -16,7 +16,7 @@ The endpoints allow to perform CRUD operations:
 |**GET**| /api/v1/categories/{id} | Get a category by its ID| |
 |**POST**| /api/v1/users/create_user  | Add user with basic role | |
 
-|Admin endpoints [authenticated]|
+### Admin endpoints [authenticated]
 |Method |URL                   |Description                 |Sample Request Body |
 |-------|----------------------|----------------------------|--------------------|
 |**POST**| /api/v1/products    | Add a product              |   |

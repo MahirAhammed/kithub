@@ -18,7 +18,8 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
             "(:nameOrDescription IS NULL OR LOWER(p.product_name) LIKE LOWER('%'||:nameOrDescription||'%') OR LOWER(p.description) LIKE LOWER('%'||:nameOrDescription||'%')) AND " +
             "(:region IS NULL OR :region = ANY(p.regions)) AND " +
             "(:category IS NULL OR LOWER(c.category_name) = LOWER(:category)) AND " +
-            "(:supplier IS NULL OR LOWER(p.supplier) LIKE LOWER('%'||:supplier||'%'))", nativeQuery = true)
+            "(:supplier IS NULL OR LOWER(p.supplier) LIKE LOWER('%'||:supplier||'%')) AND " +
+            "p.amount > 0", nativeQuery = true)
     List<Product> findProductsByMatchingCriteria(
             @Param("nameOrDescription") String nameOrDescription,
             @Param("region") String region,

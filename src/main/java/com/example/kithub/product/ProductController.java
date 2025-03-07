@@ -2,6 +2,7 @@ package com.example.kithub.product;
 
 import com.example.kithub.product.commandhandlers.AddProductHandler;
 import com.example.kithub.product.commandhandlers.DeleteProductHandler;
+import com.example.kithub.product.commandhandlers.InventoryHandler;
 import com.example.kithub.product.commandhandlers.UpdateProductHandler;
 import com.example.kithub.product.queryhandlers.GetProductByIdHandler;
 import com.example.kithub.product.queryhandlers.GetProductsHandler;
@@ -24,15 +25,17 @@ public class ProductController {
     private final GetProductByIdHandler getProductByIdHandler;
     private final UpdateProductHandler updateProductHandler;
     private final DeleteProductHandler deleteProductHandler;
+    private final InventoryHandler inventoryHandler;
 
 
     @Autowired
-    public ProductController(AddProductHandler addProductHandler, GetProductsHandler getProductsHandler, GetProductByIdHandler getProductByIdHandler, UpdateProductHandler updateProductHandler, DeleteProductHandler deleteProductHandler) {
+    public ProductController(AddProductHandler addProductHandler, GetProductsHandler getProductsHandler, GetProductByIdHandler getProductByIdHandler, UpdateProductHandler updateProductHandler, DeleteProductHandler deleteProductHandler, InventoryHandler inventoryHandler) {
         this.addProductHandler = addProductHandler;
         this.getProductsHandler = getProductsHandler;
         this.getProductByIdHandler = getProductByIdHandler;
         this.updateProductHandler = updateProductHandler;
         this.deleteProductHandler = deleteProductHandler;
+        this.inventoryHandler = inventoryHandler;
     }
 
     @GetMapping
@@ -71,6 +74,24 @@ public class ProductController {
     public ResponseEntity deleteProduct(@PathVariable String id){
         return deleteProductHandler.execute(id);
 
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ProductDTO> incrementProductQuantity(
+            @PathVariable("id") String id,
+            @RequestParam(name = "increase", defaultValue = "1") int quantity
+    ){
+        return inventoryHandler.incrementProduct(id, quantity);
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ProductDTO> decrementProductQuantity(
+            @PathVariable("id") String id,
+            @RequestParam(name = "decrease", defaultValue = "1") int quantity)
+    {
+        return inventoryHandler.decrementProduct(id, quantity);
     }
 
 }
